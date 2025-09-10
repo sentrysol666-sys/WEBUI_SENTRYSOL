@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
     <style>
         body {
@@ -291,7 +292,6 @@
         .tilt-card {
             transform-style: preserve-3d;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            background-color: rgba(255, 255, 255, 0.05);
         }
         .tilt-card-inner {
             transform: translateZ(40px);
@@ -313,34 +313,80 @@
             padding: 1rem;
         }
         
-        /* Velocity Scroll Text Styles */
-        #features-wrapper {
-            height: 200vh; /* Provides scrollable area for the effect */
-        }
-        #sticky-wrapper {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-        .velocity-text {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
-            font-size: clamp(3rem, 10vw, 9rem);
-            white-space: nowrap;
-            will-change: transform;
-            line-height: 0.85;
-            text-transform: uppercase;
-        }
-        
         /* D3 Animation Styles */
         #d3-trace-animation-container {
             background: rgba(0, 27, 50, 0.3);
             border: 1px solid rgba(0, 200, 255, 0.2);
             backdrop-filter: blur(5px);
         }
+
+        /* Bento Grid Styles */
+        .bento-block {
+            background: linear-gradient(145deg, rgba(22, 49, 82, 0.5), rgba(10, 25, 47, 0.7));
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            opacity: 0;
+            transform: scale(0.95) translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-block.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        .bento-block:hover {
+            transform: scale(1.02);
+            transition-duration: 0.3s;
+        }
+        
+        /* Draw Circle Effect */
+        #circle-path {
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+        #draw-effect-section.visible #circle-path {
+            stroke-dashoffset: 0;
+        }
+
+        /* Clip Path Link Styles */
+        .clip-path-link-container {
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .clip-path-link {
+            position: relative;
+            display: grid;
+            place-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            min-height: 120px;
+            background: linear-gradient(145deg, rgba(22, 49, 82, 0.2), rgba(10, 25, 47, 0.4));
+            color: #E2E8F0; /* slate-200 */
+        }
+        .clip-path-link-text {
+            font-weight: 600;
+        }
+        .clip-path-link-reveal {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-content: center;
+            background-color: #00C8FF;
+            color: #000B19;
+            transition: clip-path 0.4s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+        
+        /* Data Source Card Styles */
+        .data-source-card {
+             background: linear-gradient(145deg, rgba(22, 49, 82, 0.5), rgba(10, 25, 47, 0.7));
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            opacity: 0; /* Initial state for anime.js */
+        }
+
     </style>
 </head>
 <body class="w-full loading">
@@ -414,15 +460,22 @@
                 </a>
             </div>
         </section>
+        
+        <!-- Draw Circle Text Section -->
+        <section id="draw-effect-section" class="py-24 px-4 md:px-8 bg-[#000B19] text-center scroll-animation">
+            <h2 class="plus-jakarta text-4xl md:text-6xl font-bold max-w-4xl mx-auto leading-tight">
+                Uncover the Truth with
+                <span class="relative inline-block text-cyan-400">
+                    Precision
+                    <svg viewBox="0 0 345 84" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute -left-4 -right-4 -top-2 -bottom-4">
+                        <path id="circle-path" d="M171.745 2.00002C127.906 19.3441 -1.4985 11.2312 2.30748 48.6015C4.78288 74.1913 41.3415 80.4439 152.483 78.8573C263.625 77.2707 384.711 75.3193 335.631 42.6105C280.12 -0.806297 122.033 26.311 68.9954 2.00002" stroke="#00C8FF" stroke-width="3"/>
+                    </svg>
+                </span>
+                AI
+            </h2>
+        </section>
 
-        <!-- Features Section Wrapper for Velocity Scroll Effect -->
-        <div id="features-wrapper">
-            <div id="sticky-wrapper">
-                <h2 class="velocity-text">
-                    THE FASTEST WAY TO TRACE&nbsp;—&nbsp;THE FASTEST WAY TO TRACE&nbsp;—&nbsp;THE FASTEST WAY TO TRACE&nbsp;—&nbsp;
-                </h2>
-            </div>
-        </div>
+        <!-- Features Section -->
         <section id="features" class="py-20 px-4 md:px-8 relative bg-[#000B19]">
             <div class="container mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 features-grid">
@@ -584,6 +637,76 @@
                              <div class="card-bg-circle"></div><div class="card-bg-ellipse"></div>
                          </div>
                      </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Compliance Section -->
+        <section id="compliance" class="py-20 px-4 md:px-8 bg-[#001021]">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="plus-jakarta text-4xl md:text-5xl font-bold">Ironclad Security, Seamless Compliance</h2>
+                    <p class="plus-jakarta text-lg text-white/80 mt-4 max-w-3xl mx-auto">Navigate the complexities of global regulations with an intelligence-driven platform designed to protect your assets and your reputation.</p>
+                </div>
+                <div class="mx-auto grid max-w-5xl grid-flow-dense grid-cols-12 gap-4">
+                    <div class="bento-block col-span-12 lg:col-span-8">
+                         <div class="clip-path-link-container">
+                            <div class="grid grid-cols-2 divide-x divide-y divide-white/10">
+                                <a href="#" class="clip-path-link">
+                                    <span class="clip-path-link-text">Navigate Regulations with Confidence</span>
+                                    <div class="clip-path-link-reveal">
+                                         <span class="clip-path-link-text">Navigate Regulations with Confidence</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="clip-path-link">
+                                    <span class="clip-path-link-text">Shield Your Reputation</span>
+                                    <div class="clip-path-link-reveal">
+                                        <span class="clip-path-link-text">Shield Your Reputation</span>
+                                    </div>
+                                </a>
+                                 <a href="#" class="clip-path-link">
+                                     <span class="clip-path-link-text">Automate and Accelerate</span>
+                                    <div class="clip-path-link-reveal">
+                                        <span class="clip-path-link-text">Automate and Accelerate</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="clip-path-link">
+                                    <span class="clip-path-link-text">Secure Exchanges & DeFi</span>
+                                    <div class="clip-path-link-reveal">
+                                        <span class="clip-path-link-text">Secure Exchanges & DeFi</span>
+                                    </div>
+                                </a>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="data-source-card col-span-12 lg:col-span-4">
+                        <div class="flex items-center gap-3 mb-3">
+                            <img src="https://flagcdn.com/w40/us.png" alt="US Flag" class="w-7 h-auto rounded-sm">
+                            <h4 class="plus-jakarta font-bold">United States</h4>
+                        </div>
+                        <p class="text-sm text-white/70">Office of Foreign Assets Control (OFAC)</p>
+                    </div>
+                    <div class="data-source-card col-span-12 lg:col-span-4">
+                         <div class="flex items-center gap-3 mb-3">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="UK Flag" class="w-7 h-auto rounded-sm">
+                            <h4 class="plus-jakarta font-bold">United Kingdom</h4>
+                        </div>
+                        <p class="text-sm text-white/70">Office of Financial Sanctions Implementation (OFSI)</p>
+                    </div>
+                     <div class="data-source-card col-span-12 lg:col-span-4">
+                         <div class="flex items-center gap-3 mb-3">
+                             <img src="https://flagcdn.com/w40/kr.png" alt="South Korea Flag" class="w-7 h-auto rounded-sm">
+                            <h4 class="plus-jakarta font-bold">South Korea</h4>
+                        </div>
+                        <p class="text-sm text-white/70">Ministry of Foreign Affairs (MOFA)</p>
+                    </div>
+                    <div class="data-source-card col-span-12 lg:col-span-4">
+                         <div class="flex items-center gap-3 mb-3">
+                             <img src="https://flagcdn.com/w40/il.png" alt="Israel Flag" class="w-7 h-auto rounded-sm">
+                            <h4 class="plus-jakarta font-bold">Israel</h4>
+                        </div>
+                        <p class="text-sm text-white/70">National Bureau for Counter Terror Financing (NBCTF)</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -817,6 +940,8 @@
             // Start Particle Animation
             initParticleLoader();
 
+            setupDrawAnimation();
+
             const loader = document.getElementById('loader');
             const body = document.querySelector('body');
             const loaderText = document.getElementById('loader-text');
@@ -858,6 +983,26 @@
                         if (loader) loader.style.display = 'none';
                         body.classList.remove('loading');
                         handleScrollAnimation();
+                        // Also trigger the bento grid animation
+                        const bentoGrids = document.querySelectorAll('#bento-grid, #tech-bento-grid');
+                        bentoGrids.forEach(bentoGrid => {
+                             if(bentoGrid) {
+                                const bentoObserver = new IntersectionObserver((entries) => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            const blocks = entry.target.querySelectorAll('.bento-block');
+                                            blocks.forEach((block, index) => {
+                                                block.style.transitionDelay = `${index * 100}ms`;
+                                                block.classList.add('visible');
+                                            });
+                                            bentoObserver.unobserve(entry.target);
+                                        }
+                                    });
+                                }, { threshold: 0.1 });
+                                bentoObserver.observe(bentoGrid);
+                            }
+                        });
+
                     }, 750);
                     return;
                 }
@@ -1001,55 +1146,6 @@
             });
         });
 
-        // --- Velocity Scroll Text Effect ---
-        const featuresWrapper = document.getElementById('features-wrapper');
-        const velocityText = document.querySelector('.velocity-text');
-        
-        if (featuresWrapper && velocityText) {
-            let lastScrollY = window.scrollY;
-            let lastTimestamp = performance.now();
-            let targetSkew = 0;
-            let currentSkew = 0;
-
-            const update = () => {
-                // Calculate scroll progress within the wrapper
-                const wrapperRect = featuresWrapper.getBoundingClientRect();
-                const scrollableHeight = featuresWrapper.scrollHeight - window.innerHeight;
-                const progress = -wrapperRect.top / scrollableHeight;
-                
-                // Calculate translateX
-                const textWidth = velocityText.scrollWidth;
-                const maxTranslate = textWidth - window.innerWidth;
-                const translateX = -maxTranslate * progress;
-
-                // Smoothly interpolate skew
-                currentSkew += (targetSkew - currentSkew) * 0.1;
-
-                velocityText.style.transform = `translateX(${translateX}px) skewX(${currentSkew}deg)`;
-
-                requestAnimationFrame(update);
-            };
-
-            window.addEventListener('scroll', () => {
-                const now = performance.now();
-                const deltaY = window.scrollY - lastScrollY;
-                const deltaTime = now - lastTimestamp;
-                
-                if (deltaTime > 0) {
-                    const velocity = deltaY / deltaTime;
-                    // Clamp and map velocity to a skew value
-                    const maxSkew = 15;
-                    targetSkew = Math.max(-maxSkew, Math.min(maxSkew, -velocity * 0.5));
-                }
-
-                lastScrollY = window.scrollY;
-                lastTimestamp = now;
-            });
-            
-            // Start the animation loop
-            requestAnimationFrame(update);
-        }
-
         // --- D3.js Trace Animation ---
         function generateTraceData(maxDepth = 3, maxChildren = 3, currentDepth = 0) {
             const root = { name: "Source", children: [] };
@@ -1142,6 +1238,115 @@
                 console.error("Failed to start D3 animation:", error);
             }
         }
+
+        // Bento Grid Staggered Animation (for #tech-bento-grid)
+        document.querySelectorAll('#tech-bento-grid').forEach(bentoGrid => {
+            if (bentoGrid) {
+                const bentoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const blocks = entry.target.querySelectorAll('.bento-block');
+                            blocks.forEach((block, index) => {
+                                block.style.transitionDelay = `${index * 100}ms`;
+                                block.classList.add('visible');
+                            });
+                            bentoObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                bentoObserver.observe(bentoGrid);
+            }
+        });
+        
+        // Anime.js animation for Data Sources
+        const complianceSection = document.getElementById('compliance');
+        if (complianceSection) {
+            const dataSourceObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: '.data-source-card',
+                            translateY: [30, 0],
+                            opacity: [0, 1],
+                            delay: anime.stagger(150),
+                            easing: 'easeOutExpo',
+                            duration: 1000
+                        });
+                        // We can also animate the main clip-path card
+                        const mainCard = entry.target.querySelector('.bento-block');
+                        if(mainCard) {
+                             mainCard.style.transitionDelay = '0ms';
+                             mainCard.classList.add('visible');
+                        }
+                       
+                        dataSourceObserver.unobserve(entry.target); // Animate only once
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            dataSourceObserver.observe(complianceSection);
+        }
+
+
+        // Draw Circle Animation Setup
+        function setupDrawAnimation() {
+            const path = document.getElementById('circle-path');
+            if (!path) return;
+
+            const pathLength = path.getTotalLength();
+            path.style.strokeDasharray = pathLength;
+            path.style.strokeDashoffset = pathLength;
+        }
+
+        // Clip Path Links Animation
+        const NO_CLIP = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
+        const BOTTOM_RIGHT_CLIP = "polygon(0 0, 100% 0, 0 0, 0% 100%)";
+        const TOP_RIGHT_CLIP = "polygon(0 0, 0 100%, 100% 100%, 0% 100%)";
+        const BOTTOM_LEFT_CLIP = "polygon(100% 100%, 100% 0, 100% 100%, 0 100%)";
+        const TOP_LEFT_CLIP = "polygon(0 0, 100% 0, 100% 100%, 100% 0)";
+
+        const ENTRANCE_KEYFRAMES = {
+            left: [BOTTOM_RIGHT_CLIP, NO_CLIP],
+            bottom: [TOP_RIGHT_CLIP, NO_CLIP],
+            top: [BOTTOM_RIGHT_CLIP, NO_CLIP],
+            right: [TOP_LEFT_CLIP, NO_CLIP],
+        };
+
+        const EXIT_KEYFRAMES = {
+            left: [NO_CLIP, TOP_RIGHT_CLIP],
+            bottom: [NO_CLIP, BOTTOM_RIGHT_CLIP],
+            top: [NO_CLIP, BOTTOM_LEFT_CLIP],
+            right: [NO_CLIP, BOTTOM_LEFT_CLIP],
+        };
+        
+        const getNearestSide = (e) => {
+            const box = e.target.getBoundingClientRect();
+            const proximityToLeft = { proximity: Math.abs(box.left - e.clientX), side: "left" };
+            const proximityToRight = { proximity: Math.abs(box.right - e.clientX), side: "right" };
+            const proximityToTop = { proximity: Math.abs(box.top - e.clientY), side: "top" };
+            const proximityToBottom = { proximity: Math.abs(box.bottom - e.clientY), side: "bottom" };
+            const sortedProximity = [proximityToLeft, proximityToRight, proximityToTop, proximityToBottom].sort((a, b) => a.proximity - b.proximity);
+            return sortedProximity[0].side;
+        };
+        
+        document.querySelectorAll(".clip-path-link").forEach(link => {
+            const reveal = link.querySelector(".clip-path-link-reveal");
+            reveal.style.clipPath = BOTTOM_RIGHT_CLIP;
+
+            link.addEventListener("mouseenter", (e) => {
+                const side = getNearestSide(e);
+                const entrance = ENTRANCE_KEYFRAMES[side];
+                reveal.animate({ clipPath: entrance }, { duration: 400, easing: 'cubic-bezier(0.45, 0, 0.55, 1)', fill: 'forwards'});
+            });
+
+             link.addEventListener("mouseleave", (e) => {
+                const side = getNearestSide(e);
+                const exit = EXIT_KEYFRAMES[side];
+                 reveal.animate({ clipPath: exit }, { duration: 400, easing: 'cubic-bezier(0.45, 0, 0.55, 1)', fill: 'forwards'});
+            });
+        });
+
     </script>
 </body>
 </html>
+
