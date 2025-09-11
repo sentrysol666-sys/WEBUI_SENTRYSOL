@@ -18,7 +18,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "SentrySol - AI Powered Investigator Tools",
+  title: "Daemon - AI Powered Investigator Tools",
   description: "AI-powered platform for blockchain investigation and smart contract security analysis",
   generator: "Next.js",
 }

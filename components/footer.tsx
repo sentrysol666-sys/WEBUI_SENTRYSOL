@@ -10,10 +10,10 @@ export function Footer() {
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <img
                 src="https://api.builder.io/api/v1/image/assets/TEMP/0b774bfeabf0a41dd54fc314dba2e3da7216f89b?width=130"
-                alt="SentrySol Logo"
+                alt="Daemon Logo"
                 className="w-10 h-10"
               />
-              <span className="text-2xl font-bold text-white tracking-wider">SentrySol</span>
+              <span className="text-2xl font-bold text-white tracking-wider">Daemon</span>
             </div>
             <div className="flex justify-center md:justify-start gap-4 mt-4">
               <a
@@ -24,7 +24,7 @@ export function Footer() {
                 <img src="/x.png" alt="X Logo" className="w-6 h-6" />
               </a>
               <a
-                href="https://github.com/sentrysol666-sys/WEBUI_SENTRYSOL.git"
+                href="https://github.com/Daemon666-sys/WEBUI_Daemon.git"
                 className="text-white/60 hover:text-white transition-colors"
                 aria-label="GitHub"
               >
@@ -39,7 +39,7 @@ export function Footer() {
           {/* Column 3: Newsletter */}
           <div>
             <h4 className="font-semibold text-lg mb-2 text-white">Stay Updated</h4>
-            <p className="text-white/60 mb-4">Get the latest news and updates from SentrySol.</p>
+            <p className="text-white/60 mb-4">Get the latest news and updates from Daemon.</p>
             <form className="flex">
               <input
                 type="email"
@@ -56,7 +56,7 @@ export function Footer() {
           </div>
         </div>
         <div className="text-center text-white/50 mt-12 pt-8 border-t border-white/10">
-          <p>&copy; 2025 SentrySol. All rights reserved.</p>
+          <p>&copy; 2025 Daemon. All rights reserved.</p>
         </div>
       </div>
     </footer>

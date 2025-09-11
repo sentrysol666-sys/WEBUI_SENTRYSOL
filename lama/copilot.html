@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SentrySol Copilot - Dashboard</title>
+    <title>Daemon Copilot - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -197,9 +197,9 @@
         <div>
              <div class="border-b border-slate-700/50 pb-3 mb-3">
                 <a href="index.html" class="flex items-center gap-3 p-2">
-                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/0b774bfeabf0a41dd54fc314dba2e3da7216f89b?width=130" alt="SentrySol Logo" id="sentrysol-logo" class="w-10 h-10 shrink-0"/>
+                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/0b774bfeabf0a41dd54fc314dba2e3da7216f89b?width=130" alt="Daemon Logo" id="Daemon-logo" class="w-10 h-10 shrink-0"/>
                     <div class="title-text overflow-hidden">
-                        <span class="block text-sm font-semibold whitespace-nowrap text-white">SentrySol</span>
+                        <span class="block text-sm font-semibold whitespace-nowrap text-white">Daemon</span>
                         <span class="block text-xs text-slate-400 whitespace-nowrap">Investigator</span>
                     </div>
                 </a>
@@ -398,13 +398,13 @@
                     } else if (item.id === 'copilot') {
                         contentPanel.innerHTML = `
                             <div class="bg-slate-900/50 border border-slate-700 rounded-lg shadow-lg shadow-black/20 backdrop-blur-sm h-full flex flex-col">
-                                <h1 class="plus-jakarta text-2xl font-bold text-white p-4 border-b border-slate-700">SentrySol Copilot</h1>
+                                <h1 class="plus-jakarta text-2xl font-bold text-white p-4 border-b border-slate-700">Daemon Copilot</h1>
                                 <div id="chat-window" class="flex-1 p-4 overflow-y-auto space-y-4">
                                      <!-- Chat messages will be appended here -->
                                 </div>
                                 <div class="p-4 border-t border-slate-700">
                                     <div class="flex items-center bg-slate-800 rounded-lg">
-                                        <input type="text" id="chat-input" class="flex-1 bg-transparent px-4 py-3 text-slate-200 focus:outline-none" placeholder="Ask SentrySol Copilot...">
+                                        <input type="text" id="chat-input" class="flex-1 bg-transparent px-4 py-3 text-slate-200 focus:outline-none" placeholder="Ask Daemon Copilot...">
                                         <button id="send-button" class="px-4 text-slate-400 hover:text-cyan-400">
                                             <i data-lucide="send" class="w-5 h-5"></i>
                                         </button>
@@ -493,7 +493,7 @@
                 
                 const downloadChart = () => {
                     const svgElement = document.getElementById('flow-chart');
-                    const logoImage = document.getElementById('sentrysol-logo');
+                    const logoImage = document.getElementById('Daemon-logo');
                     if (!svgElement || !logoImage) return;
 
                     const svgString = new XMLSerializer().serializeToString(svgElement);
@@ -523,7 +523,7 @@
                         const pngUrl = canvas.toDataURL("image/png");
                         const downloadLink = document.createElement("a");
                         downloadLink.href = pngUrl;
-                        downloadLink.download = "sentrysol-flow-chart.png";
+                        downloadLink.download = "Daemon-flow-chart.png";
                         document.body.appendChild(downloadLink);
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
@@ -697,7 +697,7 @@
                     });
 
                     if (!chatWindow.hasChildNodes()) {
-                        addMessage("Welcome to SentrySol Copilot. How can I assist you with your investigation today? You can ask me things like:<br><ul class='list-disc list-inside mt-2'><li>'Audit this smart contract: 0x...'</li><li>'Give me a summary of this transaction...'</li><li>'Trace the funds from this address...'</li></ul>", 'copilot');
+                        addMessage("Welcome to Daemon Copilot. How can I assist you with your investigation today? You can ask me things like:<br><ul class='list-disc list-inside mt-2'><li>'Audit this smart contract: 0x...'</li><li>'Give me a summary of this transaction...'</li><li>'Trace the funds from this address...'</li></ul>", 'copilot');
                     }
                 };
                 

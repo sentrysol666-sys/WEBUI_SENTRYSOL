@@ -31,13 +31,13 @@ export function Sidebar({ activePanel, setActivePanel, closed, setClosed }: Side
           <Link href="/" className="flex items-center gap-3 p-2">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/0b774bfeabf0a41dd54fc314dba2e3da7216f89b?width=130"
-              alt="SentrySol Logo"
+              alt="Daemon Logo"
               className="w-10 h-10 shrink-0"
             />
             <div
               className={`title-text overflow-hidden transition-all duration-200 ${closed ? "opacity-0 w-0" : "opacity-100"}`}
             >
-              <span className="block text-sm font-semibold whitespace-nowrap text-white">SentrySol</span>
+              <span className="block text-sm font-semibold whitespace-nowrap text-white">Daemon</span>
               <span className="block text-xs text-slate-400 whitespace-nowrap">Investigator</span>
             </div>
           </Link>
