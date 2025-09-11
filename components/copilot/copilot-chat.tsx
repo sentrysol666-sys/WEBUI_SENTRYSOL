@@ -24,7 +24,7 @@ export function CopilotChat() {
       setMessages([
         {
           id: "1",
-          text: "Welcome to SentrySol Copilot. How can I assist you with your investigation today? You can ask me things like:<br><ul class='list-disc list-inside mt-2'><li>'Audit this smart contract: 0x...'</li><li>'Give me a summary of this transaction...'</li><li>'Trace the funds from this address...'</li></ul>",
+          text: "Welcome to Daemon Copilot. How can I assist you with your investigation today? You can ask me things like:<br><ul class='list-disc list-inside mt-2'><li>'Audit this smart contract: 0x...'</li><li>'Give me a summary of this transaction...'</li><li>'Trace the funds from this address...'</li></ul>",
           sender: "copilot",
           timestamp: new Date(),
         },
@@ -76,7 +76,7 @@ export function CopilotChat() {
 
   return (
     <div className="bg-slate-900/50 border border-slate-700 rounded-lg shadow-lg shadow-black/20 backdrop-blur-sm h-full flex flex-col">
-      <h1 className="plus-jakarta text-2xl font-bold text-white p-4 border-b border-slate-700">SentrySol Copilot</h1>
+      <h1 className="plus-jakarta text-2xl font-bold text-white p-4 border-b border-slate-700">Daemon Copilot</h1>
 
       <div ref={chatWindowRef} className="flex-1 p-4 overflow-y-auto space-y-4">
         {messages.map((message) => (
@@ -119,7 +119,7 @@ export function CopilotChat() {
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
             className="flex-1 bg-transparent px-4 py-3 text-slate-200 focus:outline-none placeholder:text-slate-500"
-            placeholder="Ask SentrySol Copilot..."
+            placeholder="Ask Daemon Copilot..."
           />
           <button onClick={handleSend} className="px-4 text-slate-400 hover:text-cyan-400 transition-colors">
             <Send className="w-5 h-5" />

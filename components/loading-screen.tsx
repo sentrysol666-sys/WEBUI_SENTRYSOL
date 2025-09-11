@@ -10,7 +10,7 @@ export function LoadingScreen({ variant = "particles" }: LoadingScreenProps) {
   const [currentWord, setCurrentWord] = useState("")
   const [wordIndex, setWordIndex] = useState(0)
 
-  const words = ["Analyzing", "Decrypting", "Tracing", "Securing", "SentrySol"]
+  const words = ["Analyzing", "Decrypting", "Tracing", "Securing", "Daemon"]
 
   useEffect(() => {
     if (variant === "particles") {

@@ -46,10 +46,10 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/0b774bfeabf0a41dd54fc314dba2e3da7216f89b?width=130"
-              alt="SentrySol Logo"
+              alt="Daemon Logo"
               className="w-10 h-10"
             />
-            <span className="text-2xl font-bold text-white tracking-wider">SentrySol</span>
+            <span className="text-2xl font-bold text-white tracking-wider">Daemon</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-6">
